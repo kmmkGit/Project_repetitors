@@ -21,8 +21,11 @@ class FormRequest(FlaskForm):
                                      Length(min=2, max=50, message="Имя %(min)d - %(max)d символов")])
     phone = StringField("Ваш телефон", [InputRequired(message="Необходимо ввести ваш номер телефона"),
                                         Length(max=15, message="Слишком много символов в номере телефона")])
-    goal = RadioField('Какая цель занятий?', choices=[], default="")
-    time = RadioField('Сколько времени есть?', choices=[], default="")
+    goal = RadioField('Какая цель занятий?', choices=[("travel", "Для путешествий"), ("study", "Для учебы"),
+                                                      ("work", "Для работы"), ("relocate", "Для переезда"),
+                                                      ("programming", "Для программирования")], default="study")
+    time = RadioField('Сколько времени есть?', choices=[('time1', '1-2 часа в неделю'), ('time2', '3-5 часов в неделю'),
+             ('time3', '5-7 часов в неделю'), ('time4', '7-10 часов в неделю')], default="time2")
     submit = SubmitField('Найдите мне преподавателя')
 
 
@@ -113,10 +116,11 @@ def render_request():
     form = FormRequest()
     if form.validate():
         print("Validate")
-#    if form.validate_on_submit():
+    if form.validate_on_submit():
+        print("form.validate_on_submit():")
     if request.method == "POST":
 
-        print("form.validate_on_submit():")
+        print("POST")
         #return redirect('/request_done/')
         goal = goals_pict[form.goal.data][0]
         time = dict(time_have)[form.time.data]
@@ -132,11 +136,11 @@ def render_request():
             json.dump(request_records, file_t)
         return render_template('request_done.html', request_param=[goal, time, name, phone])
     print("request", request.method)
-    form.goal.choices = [(a, b[0]) for a, b in goals_pict.items()]
-    form.goal.default = form.goal.choices[0][0]
-    form.time.choices = [[a[0], a[1]] for a in time_have]
-    form.time.default = form.time.choices[0][0]
-    form.process()
+    #form.goal.choices = [(a, b[0]) for a, b in goals_pict.items()]
+    #form.goal.default = form.goal.choices[0][0]
+    #form.time.choices = [[a[0], a[1]] for a in time_have]
+    #form.time.default = form.time.choices[0][0]
+    #form.process()
     return render_template('request.html', form=form)
 
 
