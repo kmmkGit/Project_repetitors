@@ -118,9 +118,8 @@ def render_request():
         print("Validate")
     if form.validate_on_submit():
         print("form.validate_on_submit():")
-    if request.method == "POST":
-
-        print("POST")
+        if request.method == "POST":
+            print("POST")
         #return redirect('/request_done/')
         goal = goals_pict[form.goal.data][0]
         time = dict(time_have)[form.time.data]
