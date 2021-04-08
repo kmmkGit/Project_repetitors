@@ -26,6 +26,7 @@ class FormRequest(FlaskForm):
     submit = SubmitField('Найдите мне преподавателя')
 
 
+
 class BookingToTeacher(FlaskForm):
     name = StringField("Вас зовут", [InputRequired(message="Необходимо указать имя"),
                                      Length(min=2, max=50, message="Имя %(min)d - %(max)d символов")])
@@ -60,6 +61,10 @@ goals_pict = dict(map(lambda a, b, c, d: (a, [b, c, 'goal' + str(d)]), goals.key
 time_have = [('time1', '1-2 часа в неделю'), ('time2', '3-5 часов в неделю'),
              ('time3', '5-7 часов в неделю'), ('time4', '7-10 часов в неделю')]
 
+#FormRequest.goal.choices = [(a, b[0]) for a, b in goals_pict.items()]
+#FormRequest.goal.default = FormRequest.goal.choices[0][0]
+#FormRequest.time.choices = [[a[0], a[1]] for a in time_have]
+#FormRequest.time.default = FormRequest.time.choices[0][0]
 
 @app.route('/')
 # здесь будет главная
