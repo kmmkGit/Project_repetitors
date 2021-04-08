@@ -108,9 +108,11 @@ def render_request():
     form = FormRequest()
     if form.validate():
         print("Validate")
-    if form.validate_on_submit():
+#    if form.validate_on_submit():
+    if request.method == "POST":
+
         print("form.validate_on_submit():")
-        return redirect('/request_done/')
+        #return redirect('/request_done/')
         goal = goals_pict[form.goal.data][0]
         time = dict(time_have)[form.time.data]
         name = form.name.data
@@ -137,7 +139,7 @@ def render_request():
 # заявка на подбор отправлена
 def render_request_done():
     form = FormRequest()
-    print("/request_done/")
+    print("/request_done/", form.goal.data)
     #    if not form.validate_on_submit():
     #        return render_template('str_404.html', error='Неверно указана страница'), 404
     goal = goals_pict[form.goal.data][0]
