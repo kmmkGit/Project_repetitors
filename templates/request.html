@@ -37,21 +37,21 @@
             <div class="card-body mx-3">
                 {{ form.name.label(class_="mb-1 mt-2") }}
                 {% if form.name.errors %}
-                {{ form.name(class_="invalid", placeholder="Имя") }}
-                    {% for err in form.name.errors %}
-                          <p class="alert-warning">{{ err }}</p>
-                    {% endfor %}
+                    {{ form.name(class_="invalid", placeholder="Имя") }}
+                        {% for err in form.name.errors %}
+                              <p class="alert-warning">{{ err }}</p>
+                        {% endfor %}
                 {% else %}
-                {{ form.name(class_="form-control", placeholder="Имя") }}
+                    {{ form.name(class_="form-control", placeholder="Имя") }}
                 {% endif %}
                 {{ form.phone.label(class_="mb-1 mt-2") }}
                 {% if form.phone.errors %}
-                {{ form.phone(class_="invalid", placeholder="+7-9ХХ-ХХХ-ХХ-ХХ") }}
-                    {% for err in form.phone.errors %}
-                        <p class="error">{{ err }}</p>
-                    {% endfor %}
+                    {{ form.phone(class_="invalid", placeholder="+7-9ХХ-ХХХ-ХХ-ХХ") }}
+                        {% for err in form.phone.errors %}
+                            <p class=alert-warning">{{ err }}</p>
+                        {% endfor %}
                 {% else %}
-                {{ form.phone(class_="form-control", placeholder="+7-9ХХ-ХХХ-ХХ-ХХ") }}
+                    {{ form.phone(class_="form-control", placeholder="+7-9ХХ-ХХХ-ХХ-ХХ") }}
                 {% endif %}
                 {{ form.submit(class_="btn btn-primary mt-4 mb-2") }}
             </div>
