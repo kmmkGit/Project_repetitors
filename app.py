@@ -143,12 +143,6 @@ def render_request():
         with open("request.json", "w", encoding='utf-8') as file_t:
             json.dump(request_records, file_t)
         return render_template('request_done.html', request_param=[goal, time, name, phone])
-    # print("request", request.method)
-    # form.goal.choices = [(a, b[0]) for a, b in goals_pict.items()]
-    # form.goal.default = form.goal.choices[0][0]
-    # form.time.choices = [[a[0], a[1]] for a in time_have]
-    # form.time.default = form.time.choices[0][0]
-    # form.process()
     return render_template('request.html', form=form)
 
 
@@ -179,10 +173,8 @@ def render_request_done():
 @app.route('/booking/<int:teacher_id>/<day_of_week>/<time_booking>/', methods=["POST", "GET"])
 #  здесь будет форма бронирования <id учителя>
 def render_booking(teacher_id=None, day_of_week=None, time_booking=None):
-    # print("render_booking")
     form = BookingToTeacher()
     if form.validate_on_submit():
-        # print("booking.validate_on_submit()")
         days = dict([(b[1], [b[0], a]) for a, b in days_of_week.items()])
         day = days[form.weekday.data][0]
         time = form.time.data + ":00"
@@ -202,7 +194,7 @@ def render_booking(teacher_id=None, day_of_week=None, time_booking=None):
     if request.method == "GET" and ((teacher_id not in [t["id"] for t in teachers]) or
                                     (day_of_week not in dict(days).keys()) or
                                     not free_time_exist(teacher_id, day_of_week, time_booking + ":00")):
-        print(teacher_id, day_of_week, time_booking)
+        # print(teacher_id, day_of_week, time_booking)
         return render_template('str_404.html', error='Неверно указаны данные бронирования'), 404
     day_booking = [dict(days)[day_of_week], day_of_week]
     form.weekday.data = day_booking[1]
